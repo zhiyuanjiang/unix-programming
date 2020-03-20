@@ -1,0 +1,5 @@
+# 过滤cmake-build-debug文件夹
+cmake-build-debug/
+
+# 过滤./idea文件夹
+.idea/
