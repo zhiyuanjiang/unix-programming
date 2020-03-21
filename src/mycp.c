@@ -42,7 +42,7 @@ void mycp2(char* source_path, char* target_path)
         exit(-1);
     }
 
-    dirent* mydirent = NULL;
+    struct dirent* mydirent = NULL;
     // 获取文件夹内文件的信息
     while((mydirent = readdir(mydir)) != NULL){
 
