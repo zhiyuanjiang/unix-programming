@@ -2,8 +2,8 @@
 // Created by 86151 on 2020/3/20.
 //
 
-#ifndef TEST_MYINSTRUCTOR_H
-#define TEST_MYINSTRUCTOR_H
+#ifndef TEST_MYLS_H
+#define TEST_MYLS_H
 
 #include "apue.h"
 #include <stdio.h>

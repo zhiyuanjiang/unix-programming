@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <wait.h>
-#include <myinstructor.h>
+#include <myls.h>
 
 
 int main(int argc, char* argv[]) {

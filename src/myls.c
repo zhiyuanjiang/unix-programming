@@ -1,7 +1,7 @@
 //
 // Created by 86151 on 2020/3/20.
 //
-#include "myinstructor.h"
+#include "myls.h"
 
 #define MAX_SIZE 255
 
