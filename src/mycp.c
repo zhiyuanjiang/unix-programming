@@ -25,6 +25,18 @@ void mycp(const char* source_filepath, const char* target_filepath)
         write(fd2, buf, num);
     }
 
+    struct stat sbuf[MAX_SIZE];
+    if(stat(source_filepath, sbuf) == -1) {
+        perror("np");
+        exit(-1);
+    }
+    // printf("%s %d\n", path2, buf->st_mode);
+    //修改文件权限
+    if(chmod(target_filepath, sbuf->st_mode) == -1){
+        perror("np");
+        exit(-1);
+    }
+
     close(fd1);
     close(fd2);
 }
@@ -66,21 +78,33 @@ void mycp2(char* source_path, char* target_path)
             mycp2(path1, path2);
         }else{
             mycp(path1, path2);
-            struct stat buf[MAX_SIZE];
-            if(stat(path1, buf) == -1) {
-                perror("np");
-                exit(-1);
-            }
-            printf("%s %d\n", path2, buf->st_mode);
-            //修改文件权限
-            if(chmod(path2, buf->st_mode) == -1){
-                perror("np");
-                exit(-1);
-            }
         }
     }
 
     closedir(mydir);
+}
+
+void pad_path(char buf[], char *source_path, char *target_path)
+{
+    strcpy(buf, target_path);
+
+    int len1 = strlen(source_path);
+    int len2 = strlen(target_path);
+
+    if(target_path[len2-1] == '/'){
+        // 补全target_filedir_path
+        int pos = 0;
+        for(int i = len1-1; i >= 0; --i){
+            if(source_path[i] == '/'){
+                pos = i+1; break;
+            }
+        }
+
+        for(int i = 0; i < len1-pos+1; ++i) {
+            // 最后一个字符要是'\0'
+            buf[len2 + i] = source_path[pos + i];
+        }
+    }
 }
 
 void test_mycp(int argc, char*argv[])
@@ -88,6 +112,12 @@ void test_mycp(int argc, char*argv[])
     if(argc == 3){
         char* source_filepath = argv[1];
         char* target_filepath = argv[2];
+
+        int len = strlen(target_filepath);
+        char name[len+MAX_SIZE];
+
+        pad_path(name, source_filepath, target_filepath);
+        target_filepath = name;
 
         mycp(source_filepath, target_filepath);
     }
@@ -100,27 +130,15 @@ void test_mycp(int argc, char*argv[])
         int len2 = strlen(target_filedir_path);
         char name[len2+MAX_SIZE];
 
-        if(target_filedir_path[len2-1] == '/'){
-            // 补全target_filedir_path
-            int pos = 0;
-            for(int i = len1-1; i >= 0; --i){
-                if(source_filedir_path[i] == '/'){
-                    pos = i+1; break;
-                }
-            }
-            strcpy(name, target_filedir_path);
-            for(int i = 0; i < len1-pos+1; ++i) {
-                // 最后一个字符要是'\0'
-                name[len2 + i] = source_filedir_path[pos + i];
-            }
-            target_filedir_path = name;
-        }
+        pad_path(name, source_filedir_path, target_filedir_path);
+        target_filedir_path = name;
+
         // printf("%s\n", target_filedir_path);
         if(mkdir(target_filedir_path, 0775) == -1){
             perror("mycp");
             exit(-1);
         }
         mycp2(source_filedir_path, target_filedir_path);
-        printf("%d\n", (mode_t)0775);
+        // printf("%d\n", (mode_t)0775);
     }
 }

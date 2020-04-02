@@ -37,7 +37,17 @@ void mycp2(char* source_path, char* target_path);
  * :params
  *      argc:参数个数
  *      argv:参数
+ *      -r - 文件夹复制
  */
 void test_mycp(int argc, char*argv[]);
+
+/*
+ * 填充路径，对于最后一位为'/'的target_path进行填充，buf指向新的文件地址
+ * params:
+ *      buf - 指向填充后的文件地址
+ *      source_path - 源文件地址
+ *      target_path - 目标文件地址
+ */
+void pad_path(char buf[], char *source_path, char *target_path);
 
 #endif //TEST_MYCP_H
