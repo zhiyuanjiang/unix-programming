@@ -23,7 +23,7 @@
  */
 void mycp(const char* source_filepath, const char* target_filepath);
 /*
- * mycp2:复制一个文件夹到另一个地址
+ * mycp2:复制一个文件夹到另一个地址, 每次都要创建新的文件夹
  *
  * :params
  *      source_path:源文件夹地址

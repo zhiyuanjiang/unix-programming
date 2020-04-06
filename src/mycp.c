@@ -68,9 +68,15 @@ void mycp2(char* source_path, char* target_path)
         strcat(path2, "/");
         strcat(path2, mydirent->d_name);
 
+        struct stat sbuf[MAX_SIZE];
+        if(stat(path1, sbuf) == -1) {
+            perror("np");
+            exit(-1);
+        }
+
         if(mydirent->d_type == 4){
             // 为什么是775
-            if(mkdir(path2, 0775) == -1){
+            if(mkdir(path2, sbuf->st_mode) == -1){
                 printf("target_path: %s create failed", target_path);
                 perror("mycp");
                 exit(-1);
