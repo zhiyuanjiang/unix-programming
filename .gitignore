@@ -3,3 +3,5 @@ cmake-build-debug/
 
 # 过滤./idea文件夹
 .idea/
+
+img/

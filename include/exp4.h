@@ -12,7 +12,7 @@
 /*
  * 创建子进程调用mycp，只复制普通的文件，不复制目录
  */
-void cpfile();
+void cpfile(char source_path[], int flag, char target_path[]);
 
 void testCpFile(int argc, char*argv[]);
 

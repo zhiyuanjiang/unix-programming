@@ -3,6 +3,9 @@ project(test)
 
 set(CMAKE_CXX_STANDARD 14)
 
+# 查找库
+find_package(Threads REQUIRED)
+
 # 添加头文件的库
 include_directories(./include)
 
@@ -15,4 +18,4 @@ aux_source_directory(./src DIR_SRCS)
 
 add_executable(test main.c ${DIR_SRCS})
 
-target_link_libraries(test libapue.a)
+target_link_libraries(test libapue.a ${CMAKE_THREAD_LIBS_INIT})
